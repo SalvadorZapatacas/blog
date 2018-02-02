@@ -11,6 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        /*
+         * Se llama primero a la menos restrictiva con las claves foraneas para que no haya follones
+         */
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(PostsTableSeeder::class);
     }
 }
