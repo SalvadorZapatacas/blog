@@ -12,5 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //Utilizamos latest , funcion de Eloquent
+    $posts = App\Post::latest('published_at')->get();
+    return view('welcome',compact('posts'));
 });
+
