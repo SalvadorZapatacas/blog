@@ -13,7 +13,7 @@
 
 Route::get('/', 'PagesController@home');
 
-Route::get('/home' , 'HomeController@index')->name('admin.home');
+
 
 
 Route::group([
@@ -21,8 +21,10 @@ Route::group([
     'namespace' => 'Admin',
     'middleware' => 'auth'],
     function() {
+        Route::get('/' , 'AdminController@index')->name('admin.dashboard');
         Route::get('posts' , 'PostsController@index')->name('admin.posts.index');
         //Resto de rutas de administración
+
 });
 
 // Authentication Routes...
