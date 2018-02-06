@@ -11,15 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    //Utilizamos latest , funcion de Eloquent
-    $posts = App\Post::latest('published_at')->get();
-    return view('welcome',compact('posts'));
-});
+Route::get('/', 'PagesController@home');
 
-Route::get('/admin' , function(){
-   return view('admin.dashboard');
-})->middleware('auth')->name('admin.home');
+Route::get('/home' , 'HomeController@index')->name('admin.home');
+
+Route::get('admin/posts' , 'Admin\PostsController@index')->name('admin.posts.index');
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
