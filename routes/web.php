@@ -21,6 +21,10 @@ Route::get('/admin' , function(){
    return view('admin.dashboard');
 })->middleware('auth');
 
+Route::get('/admin/home' , function(){
+    return view('admin.dashboard');
+})->middleware('auth');
+
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login');
