@@ -15,7 +15,15 @@ Route::get('/', 'PagesController@home');
 
 Route::get('/home' , 'HomeController@index')->name('admin.home');
 
-Route::get('admin/posts' , 'Admin\PostsController@index')->name('admin.posts.index');
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'middleware' => 'auth'],
+    function() {
+        Route::get('posts' , 'PostsController@index')->name('admin.posts.index');
+        //Resto de rutas de administración
+});
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
