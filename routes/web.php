@@ -26,6 +26,7 @@ Route::group([
         //Resto de rutas de administración
 
         Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
+        Route::post('posts', 'PostsController@store')->name('admin.posts.store');
 
 });
 
