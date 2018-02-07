@@ -25,6 +25,8 @@ Route::group([
         Route::get('posts' , 'PostsController@index')->name('admin.posts.index');
         //Resto de rutas de administración
 
+        Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
+
 });
 
 // Authentication Routes...
