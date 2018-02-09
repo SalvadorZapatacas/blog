@@ -20,6 +20,9 @@
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Listado de publicaciones</h3>
+            <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-plus"> Crear publicación</i>
+            </button>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -83,4 +86,32 @@
             })
         })
     </script>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <form action="{{ route('admin.posts.store') }}" method="POST">
+            {{ csrf_field() }}
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Título de la nueva publicacion</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
+                            <input type="text" name="title" class="form-control" placeholder="Escribe el título de la publicación" value="{{ old('title') }}">
+                            {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create Post</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
 @endpush

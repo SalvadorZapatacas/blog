@@ -25,6 +25,11 @@ class PostsController extends Controller
         return view('admin.posts.create',compact('categories','tags'));
     }
 
+    public function edit(Post $post)
+    {
+        return view('admin.posts.edit', compact('post'));
+    }
+/*
     public function store(Request $request)
     {
         $this->validate($request , [
@@ -44,6 +49,7 @@ class PostsController extends Controller
         /*
          * Si ponemos eso , en vez de nula lo que hace es poner la fecha de hoy
          */
+/*
         $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;
         $post->category_id = $request->category_id;
 
@@ -52,9 +58,26 @@ class PostsController extends Controller
         /*
          * Nos basamos en la relacion y con attach se lo añadimos ( mirar docs )
          */
+/*
         $post->tags()->attach($request->tags);
 
         return back()->with('flash','La publicación ha sido creada');
+    }
+*/
+
+    public function store(Request $request)
+    {
+        $this->validate($request , [
+            'title' => 'required'
+        ]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->slug = str_slug($request->title);
+
+        $post->save();
+
+        return redirect()->route('admin.posts.edit', $post);
     }
 
 }
