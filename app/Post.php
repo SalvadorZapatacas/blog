@@ -31,4 +31,13 @@ class Post extends Model
             ->where('published_at', '<' , Carbon::now())
             ->latest('published_at');
     }
+
+    /*
+     * Sobreescribimos para que no funcione, para el Model Binding con el slug y no con el ID
+     */
+    public function getRouteKeyName(){
+        return 'slug';
+    }
+
+
 }

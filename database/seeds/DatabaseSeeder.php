@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
          * Se llama primero a la menos restrictiva con las claves foraneas para que no haya follones
          */
         $this->call(CategoriesTableSeeder::class);
-        $this->call(PostsTableSeeder::class);
         $this->call(TagsTableSeeder::class);
+        $this->call(PostsTableSeeder::class);
+
     }
 }
