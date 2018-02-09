@@ -40,8 +40,6 @@
                         <td>{{ $post->excerpt }}</td>
                         <td>
                             <a href="#" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
-                        </td>
-                        <td>
                             <a href="#" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
