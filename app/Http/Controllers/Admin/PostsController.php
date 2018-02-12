@@ -17,20 +17,23 @@ class PostsController extends Controller
         $posts = Post::all();
         return view('admin.posts.index', compact('posts'));
     }
-
+/*
     public function create()
     {
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.posts.create',compact('categories','tags'));
     }
-
+*/
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('admin.posts.edit', compact('post','categories','tags'));
     }
-/*
-    public function store(Request $request)
+
+    public function update(Request $request , Post $post)
     {
         $this->validate($request , [
             'title' => 'required',
@@ -40,16 +43,15 @@ class PostsController extends Controller
             'category_id' => 'required'
         ]);
 
-        $post = new Post();
         $post->title = $request->title;
         $post->slug = str_slug($request->title);
         $post->body = $request->body;
         $post->excerpt = $request->excerpt;
+
         // $post->published_at = Carbon::parse($request->published_at);
         /*
          * Si ponemos eso , en vez de nula lo que hace es poner la fecha de hoy
          */
-/*
         $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;
         $post->category_id = $request->category_id;
 
@@ -58,12 +60,13 @@ class PostsController extends Controller
         /*
          * Nos basamos en la relacion y con attach se lo añadimos ( mirar docs )
          */
-/*
-        $post->tags()->attach($request->tags);
+
+        $post->tags()->sync($request->tags);
 
         return back()->with('flash','La publicación ha sido creada');
-    }
-*/
+        }
+
+
 
     public function store(Request $request)
     {
@@ -79,5 +82,7 @@ class PostsController extends Controller
 
         return redirect()->route('admin.posts.edit', $post);
     }
+
+
 
 }
