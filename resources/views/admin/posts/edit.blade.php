@@ -164,12 +164,20 @@
             $('.select2').select2();
         });
 
-        new Dropzone('.dropzone', {
+        var myDropzone = new Dropzone('.dropzone', {
            url : '/admin/posts/{{ $post->slug }}/photos',
+            paramName : 'photo',
+            accerptedFiles: 'image/*',
+            maxFilesize : 0.2,
             headers : {
               'X-CSRF-TOKEN' : '{{ csrf_token() }}'
             },
            dictDefaultMessage : 'Arrastra aquí tus fotos para subirlas'
+        });
+
+        myDropzone.on('error', function(file, res){
+            var msg = res.errors.photo[0];
+            $('.dz-error-message:last > span').text(msg);
         });
 
         Dropzone.autoDiscover = false;

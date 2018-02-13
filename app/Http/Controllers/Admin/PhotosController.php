@@ -9,8 +9,11 @@ use App\Http\Controllers\Controller;
 class PhotosController extends Controller
 {
     //Inyección de dependencias Post $post
-    public function store(Post $post)
+    public function store( Post $post)
     {
+        $this->validate(request(), [
+            'photo' => 'required|image|max:2048'
+        ]);
         return "Procesando imágenes";
     }
 }
