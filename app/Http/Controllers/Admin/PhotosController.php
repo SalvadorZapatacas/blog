@@ -14,6 +14,12 @@ class PhotosController extends Controller
         $this->validate(request(), [
             'photo' => 'required|image|max:2048'
         ]);
+
+        // El nombre viene del script de js la opcion "paramName"
+        $photo = request()->file('photo');
+        //public se refiere en config.app.disks
+        $photo->store('public');
+
         return "Procesando imágenes";
     }
 }
