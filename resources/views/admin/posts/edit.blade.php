@@ -51,7 +51,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" name="published_at" class="form-control pull-right" value="{{ old('published_at' , $post->published_at) }}" id="datepicker">
+                                    <input type="text" name="published_at" class="form-control pull-right" value="{{ old('published_at' , $post->published_at ? $post->published_at->format('m/d/Y') : null ) }}" id="datepicker">
                                 </div>
                                 <!-- /.input group -->
                             </div>

@@ -42,7 +42,7 @@
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->excerpt }}</td>
                         <td>
-                            <a href="#" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
+                            <a href="{{ route('admin.posts.edit',$post->slug) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
                             <a href="#" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
@@ -88,30 +88,6 @@
     </script>
 
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <form action="{{ route('admin.posts.store') }}" method="POST">
-            {{ csrf_field() }}
-
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Título de la nueva publicacion</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-                            <input type="text" name="title" class="form-control" placeholder="Escribe el título de la publicación" value="{{ old('title') }}">
-                            {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Create Post</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
+  @include('admin.posts.create')
 
 @endpush
