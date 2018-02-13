@@ -98,6 +98,14 @@
                                 <textarea id="excerpt" name="excerpt" class="form-control" placeholder="Resumen de la publicación" rows="10"> {{ old('excerpt',$post->excerpt) }} </textarea>
                                 {!! $errors->first('excerpt', '<span class="help-block">:message</span>') !!}
 
+
+                                <div class="form-group">
+                                    <div class="dropzone">
+
+                                    </div>
+                                </div>
+
+
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Guardar publicación</button>
                                 </div>
@@ -115,9 +123,11 @@
 @push('styles')
 
     <!-- bootstrap datepicker -->
-    <link rel="stylesheet" href="/adminle/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css">
+    <!-- Dropzone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css" />
 
     <style>
         #excerpt{
@@ -134,8 +144,12 @@
     <script src="/adminlte/bower_components/ckeditor/ckeditor.js"></script>
     <!-- Select2 -->
     <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- Dropzone -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/min/dropzone.min.js"></script>
+
 
     <script>
+
         $('#datepicker').datepicker({
             autoclose: true
         });
@@ -149,5 +163,16 @@
             //Initialize Select2 Elements
             $('.select2').select2();
         });
+
+        new Dropzone('.dropzone', {
+           url : '/admin/posts/{{ $post->slug }}/photos',
+            headers : {
+              'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+            },
+           dictDefaultMessage : 'Arrastra aquí tus fotos para subirlas'
+        });
+
+        Dropzone.autoDiscover = false;
     </script>
+
 @endpush
