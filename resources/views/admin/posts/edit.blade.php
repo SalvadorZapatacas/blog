@@ -20,12 +20,36 @@
 
     <!-- Usando Styde/html pasarlo de vanilla a librería -->
     <div class="row">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="row">
+                            @foreach($post->photos as $photo)
+                                <form action="{{ route('admin.photos.destroy' , $photo) }}" method="POST">
+                                    {{ csrf_field() }} {{ method_field('DELETE') }}
+
+                                    <div class="col-md-2">
+                                        <button class="btn btn-danger btn-xs" style="position : absolute">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                        <img src="{{ $photo->url }}" class="img-responsive">
+                                    </div>
+                                </form>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <form action="{{ route('admin.posts.update' , $post) }}" method="POST">
             {{ csrf_field() }} {{ method_field('PUT') }}
 
             <div class="col-md-8">
                 <div class="box box-primary">
                     <div class="box-body">
+
                         <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
                             <label for="">Título de la publicación</label>
                             <input type="text" name="title" class="form-control" placeholder="Escribe el título de la publicación" value="{{ old('title' , $post->title) }}">
