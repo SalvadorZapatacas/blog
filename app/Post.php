@@ -39,5 +39,10 @@ class Post extends Model
         return 'slug';
     }
 
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
 
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Photo;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class PhotosController extends Controller
 {
@@ -15,11 +17,13 @@ class PhotosController extends Controller
             'photo' => 'required|image|max:2048'
         ]);
 
-        // El nombre viene del script de js la opcion "paramName"
-        $photo = request()->file('photo');
-        //public se refiere en config.app.disks
-        $photo->store('public');
+        // El nombre viene del script de js la opcion "paramName" , public se refiere en config.app.disks
+        $photo = request()->file('photo')->store('public');
 
-        return "Procesando imágenes";
+        Photo::create([
+            'url' => Storage::url($photo),
+            'post_id' => $post->id
+        ]);
+
     }
 }
