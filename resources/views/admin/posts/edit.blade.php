@@ -92,7 +92,7 @@
 
                             <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
                                 <label for="">Categorías</label>
-                                <select name="category_id" class="form-control" id="form_control">
+                                <select name="category_id" class="form-control select2" id="form_control">
                                     <option value="">Selecciona una categoría</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}"
@@ -194,7 +194,9 @@
 
         $(function () {
             //Initialize Select2 Elements
-            $('.select2').select2();
+            $('.select2').select2({
+                tags : true
+            });
         });
 
         var myDropzone = new Dropzone('.dropzone', {

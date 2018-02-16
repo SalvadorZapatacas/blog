@@ -35,6 +35,7 @@ class PostsController extends Controller
 
     public function update(Request $request , Post $post)
     {
+
         $this->validate($request , [
             'title' => 'required',
             'body' => 'required',
@@ -53,18 +54,28 @@ class PostsController extends Controller
          * Si ponemos eso , en vez de nula lo que hace es poner la fecha de hoy
          */
         $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;
-        $post->category_id = $request->category_id;
+
+        //$post->category_id = $request->category_id;
+
+        $post->category_id = Category::find($cat = $request->category_id)
+                            ? $cat
+                            : Category::create(['name' => $cat])->id;
 
         $post->save();
 
+
+        foreach ($request->tags as $tag){
+            $tags[] = Tag::find($tag) ? $tag : Tag::create(['name' => $tag])->id;
+        }
+
         /*
-         * Nos basamos en la relacion y con attach se lo añadimos ( mirar docs )
+         * Nos basamos en la relacion y con attach o sync se lo añadimos ( mirar docs )
          */
 
-        $post->tags()->sync($request->tags);
+        $post->tags()->sync($tags);
 
         return redirect()->route('admin.posts.edit' , $post)->with('flash','La publicación ha sido guardada');
-        }
+    }
 
 
 
