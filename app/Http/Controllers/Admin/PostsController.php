@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Http\Requests\StorePostRequest;
 use App\Post;
 use App\Tag;
 use Carbon\Carbon;
@@ -33,46 +34,13 @@ class PostsController extends Controller
         return view('admin.posts.edit', compact('post','categories','tags'));
     }
 
-    public function update(Request $request , Post $post)
+    public function update(StorePostRequest $request , Post $post)
     {
-
-        $this->validate($request , [
-            'title' => 'required',
-            'body' => 'required',
-            'excerpt' => 'required',
-            'tags' => 'required',
-            'category_id' => 'required'
-        ]);
-
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->iframe = $request->iframe;
-        $post->excerpt = $request->excerpt;
-
-        // $post->published_at = Carbon::parse($request->published_at);
-        /*
-         * Si ponemos eso , en vez de nula lo que hace es poner la fecha de hoy
-         */
-        $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;
-
-        //$post->category_id = $request->category_id;
-
-        $post->category_id = Category::find($cat = $request->category_id)
-                            ? $cat
-                            : Category::create(['name' => $cat])->id;
+        $post->update($request->all());
 
         $post->save();
 
-
-        foreach ($request->tags as $tag){
-            $tags[] = Tag::find($tag) ? $tag : Tag::create(['name' => $tag])->id;
-        }
-
-        /*
-         * Nos basamos en la relacion y con attach o sync se lo añadimos ( mirar docs )
-         */
-
-        $post->tags()->sync($tags);
+        $post->syncTags($request->tags);
 
         return redirect()->route('admin.posts.edit' , $post)->with('flash','La publicación ha sido guardada');
     }
