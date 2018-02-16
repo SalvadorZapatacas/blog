@@ -32,6 +32,16 @@ class Post extends Model
             ->latest('published_at');
     }
 
+
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = $title;
+
+        $this->attributes['slug'] = str_slug($title);
+    }
+
+
+
     /*
      * Sobreescribimos para que no funcione, para el Model Binding con el slug y no con el ID
      */

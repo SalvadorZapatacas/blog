@@ -13,8 +13,18 @@ class Category extends Model
     }
 
 
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = $name;
+
+        $this->attributes['url'] = str_slug($name);
+    }
+
+
+
+
     public function getRouteKeyName(){
-        return 'name';
+        return 'url';
     }
 
 
