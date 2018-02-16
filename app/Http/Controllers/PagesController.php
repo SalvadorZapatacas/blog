@@ -13,7 +13,7 @@ class PagesController extends Controller
     {
         //La consulta debe estar en el modelo, con scopes
 
-        $posts =  Post::published()->get();
+        $posts =  Post::published()->paginate();
 
         return view('welcome',compact('posts'));
     }
