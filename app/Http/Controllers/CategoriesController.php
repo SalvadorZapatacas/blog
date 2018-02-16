@@ -14,7 +14,9 @@ class CategoriesController extends Controller
          */
         $posts = $category->posts()->paginate();
 
-        return view('welcome', compact('posts','category'));
+        $title = "Publicaciones de la categoría" . $category->name ;
+
+        return view('welcome', compact('posts','category' , 'title'));
     }
 
 
