@@ -22,6 +22,13 @@
                                 <img src="{{ $photo->url }}" alt=""></figure>
                         @endforeach
                     </div>
+                @elseif($post->iframe)
+                    <div class="video">
+                        {!! $post->iframe !!}
+                    </div>
+                @else
+
+
                 @endif
 
                 <div class="content-post">
