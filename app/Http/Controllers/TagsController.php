@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use Illuminate\Http\Request;
+
 
 class TagsController extends Controller
 {
@@ -15,7 +17,7 @@ class TagsController extends Controller
          */
         $posts = $tag->posts()->paginate();
 
-        $title = "Publicaciones de la categoría" . $tag->name ;
+        $title = "Publicaciones de la etiqueta " . $tag->name ;
 
         return view('welcome', compact('posts','tag' , 'title'));
     }
