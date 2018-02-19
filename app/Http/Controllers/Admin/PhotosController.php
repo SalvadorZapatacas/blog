@@ -17,6 +17,9 @@ class PhotosController extends Controller
             'photo' => 'required|image|max:2048'
         ]);
 
+
+        return request()->file('photo')->store('public');
+
         // El nombre viene del script de js la opcion "paramName" , public se refiere en config.app.disks
         $photo = request()->file('photo')->store('public');
 
