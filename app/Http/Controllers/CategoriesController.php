@@ -12,7 +12,9 @@ class CategoriesController extends Controller
         /*
          * Se llama a posts() y se encadena con paginate
          */
-        $posts = $category->posts()->paginate();
+
+        // Busca todos los posts por la categoria y que su fecha de publicacion sea inferior a hoy.
+        $posts = $category->posts()->published()->paginate();
 
         $title = "Publicaciones de la categoría " . $category->name ;
 

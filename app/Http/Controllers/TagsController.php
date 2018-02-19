@@ -15,7 +15,10 @@ class TagsController extends Controller
         /*
          * Se llama a posts() y se encadena con paginate
          */
-        $posts = $tag->posts()->paginate();
+        // Busca todos los posts por la categoria y que su fecha de publicacion sea inferior a hoy.
+        $posts = $tag->posts()->published()->paginate();
+
+        //$posts = $tag->posts()->paginate();
 
         $title = "Publicaciones de la etiqueta " . $tag->name ;
 
