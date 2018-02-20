@@ -61,6 +61,17 @@ class PostsController extends Controller
         return redirect()->route('admin.posts.edit', $post);
     }
 
+    public function destroy(Post $post)
+    {
+       /*
+        * Borramos all lo relacionado en el modelo , sobreescribiendo el método boot y tal...
+        */
+
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('flash','La publicación ha sido eliminada');
+    }
+
 
 
 }

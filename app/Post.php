@@ -93,5 +93,20 @@ class Post extends Model
         return $this->hasMany(Photo::class);
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($post){
+            /*
+             * Con parentesis es que quieres hacer algo
+             * Sin parentesis es que quieres sacarlas
+             */
+            $post->tags()->detach();
+
+            $post->photos->each->delete();
+        });
+    }
+
 
 }
