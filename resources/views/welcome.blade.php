@@ -16,7 +16,7 @@
                 @if($post->photos->count() === 1)
                     <figure>
                         <!-- First por si acaso -->
-                        <img src="{{ $post->photos->first()->url }}" alt="" class="img-responsive">
+                        <img src="{{ Storage::url($post->photos()->first()->url) }}" alt="" class="img-responsive">
                     </figure>
                 @elseif($post->photos->count() > 1)
                     <div class="gallery-photos masonry">
@@ -26,7 +26,7 @@
                                     <div class="overlay">{{ $post->photos->count() }} photos</div>
                                 @endif
 
-                                <img src="{{ $photo->url }}" alt=""></figure>
+                                <img src="{{ Storage::url($photo->url) }}" alt=""></figure>
                         @endforeach
                     </div>
                 @elseif($post->iframe)

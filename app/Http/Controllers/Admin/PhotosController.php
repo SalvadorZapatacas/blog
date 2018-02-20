@@ -6,7 +6,6 @@ use App\Photo;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 
 class PhotosController extends Controller
 {
@@ -18,26 +17,29 @@ class PhotosController extends Controller
         ]);
 
 
-        return request()->file('photo')->store('public');
-
         // El nombre viene del script de js la opcion "paramName" , public se refiere en config.app.disks
-        $photo = request()->file('photo')->store('public');
+        // Guardamos en posts , dentro del disco public
 
+        //$photo = request()->file('photo')->store('public');
+
+        $post->photos()->create([
+            'url' =>  request()->file('photo')->store('posts','public')
+        ]);
+
+        /*
         Photo::create([
-            'url' => Storage::url($photo),
+            'url' =>  request()->file('photo')->store('public'),
             'post_id' => $post->id
         ]);
+        */
 
     }
 
     public function destroy(Photo $photo)
     {
         $photo->delete();
-
-        $photoPath = str_replace('storage' , 'public' , $photo->url);
-
-        Storage::delete($photoPath);
-
+        //
+        //$photoPath = str_replace('storage' , 'public' , $photo->url);
         return back()->with('flash' , 'Foto eliminada');
     }
 }
