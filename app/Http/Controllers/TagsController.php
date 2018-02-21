@@ -22,7 +22,7 @@ class TagsController extends Controller
 
         $title = "Publicaciones de la etiqueta " . $tag->name ;
 
-        return view('welcome', compact('posts','tag' , 'title'));
+        return view('pages.home', compact('posts','tag' , 'title'));
     }
 
 

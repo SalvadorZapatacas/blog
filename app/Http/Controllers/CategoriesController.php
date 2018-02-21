@@ -18,7 +18,7 @@ class CategoriesController extends Controller
 
         $title = "Publicaciones de la categoría " . $category->name ;
 
-        return view('welcome', compact('posts','category' , 'title'));
+        return view('pages.home', compact('posts','category' , 'title'));
     }
 
 
