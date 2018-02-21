@@ -30,6 +30,29 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public static function create(array $attributes = [])
+    {
+        $post  = static::query()->create($attributes);
+        $post->generateSlug();
+
+
+        return $post;
+    }
+
+    public function generateSlug()
+    {
+        $slug = str_slug($this->title);
+
+        //Tambien se puede poner ->whereSlug($slug)
+
+        if($this->where('slug',$slug)->exists()){
+            $slug .= '-' . $this->id;
+        }
+        $this->slug = $slug;
+
+        $this->save();
+    }
+
     public function scopePublished($query)
     {
         /*
@@ -40,14 +63,14 @@ class Post extends Model
             ->latest('published_at');
     }
 
-
+/*
     public function setTitleAttribute($title)
     {
         $this->attributes['title'] = $title;
 
         $this->attributes['slug'] = str_slug($title);
     }
-
+*/
     public function setPublishedAtAttribute($published_at)
     {
         /*
