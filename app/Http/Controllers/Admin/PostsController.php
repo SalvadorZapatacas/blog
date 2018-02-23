@@ -60,7 +60,10 @@ class PostsController extends Controller
         /*
          * Método subreescrito en el Modelo Post
          */
-        $post = Post::create($request->only('title'));
+        $post = Post::create([
+            'title' => $request->title,
+            'user_id' => auth()->id()
+        ]);
 
         return redirect()->route('admin.posts.edit', $post);
     }

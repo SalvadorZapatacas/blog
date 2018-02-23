@@ -13,7 +13,8 @@ class Post extends Model
       'iframe',
       'excerpt',
       'published_at',
-      'category_id'
+      'category_id',
+      'user_id'
     ];
 
     protected $dates = [
@@ -28,6 +29,11 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class ,'user_id');
     }
 
     public static function create(array $attributes = [])
