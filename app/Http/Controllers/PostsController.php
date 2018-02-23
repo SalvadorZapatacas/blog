@@ -13,7 +13,7 @@ class PostsController extends Controller
     {
         //No hace falta esto ya porque estamos utilizando el Model Binding
         //$post = Post::findOrFail($id);
-
+/*
         if(!is_null($post->published_at)){
             if($post->published_at < Carbon::now()){
                 return view('posts.show',compact('post'));
@@ -29,7 +29,13 @@ class PostsController extends Controller
         }
 
         dd('llegas aqui');
+*/
 
-        return view('posts.show',compact('post'));
+        if($post->isPublished() || auth()->check()){
+            return view('posts.show',compact('post'));
+        }
+
+        abort(404);
+
     }
 }

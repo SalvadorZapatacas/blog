@@ -29,19 +29,16 @@
         <div class="content-post">
             <header class="container-flex space-between">
                 <div class="date">
-                    <span class="c-gris">{{ $post->published_at->format('M d') }}</span>
-                </div>
-                <!--
-                <div class="post-category">
-                    <span class="category">{{ $post->category->name }}</span>
+                    <span class="c-gris">{{ optional($post->published_at)->format('M d') }}</span>
                 </div>
 
-                -->
-                <div class="post-category">
-                    <a href="{{ route('categories.show', $post->category) }}">
+                @if($post->category)
+
+                    <div class="post-category">
                         <span class="category text-capitalize">{{ $post->category->name }}</span>
-                    </a>
-                </div>
+                    </div>
+
+                @endif
 
             </header>
             <h1>{{ $post->title }}</h1>
